@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  hero-sync:
+    # 使用当前目录的 Dockerfile 构建镜像
+    build: .
+
+    # 容器名称，方便 docker logs / docker exec 时识别
+    container_name: hero-sync
+
+    # 从 .env 文件注入环境变量（敏感信息不写进镜像）
+    # .env 只存在于服务器本地，不提交到 git
+    env_file:
+      - .env
+
+    # 挂载日志文件到宿主机，容器重启后日志不丢失
+    volumes:
+      - ./task.log:/app/task.log
+
+    # 异常退出时自动重启，手动 docker stop 则不重启
+    restart: unless-stopped

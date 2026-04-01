@@ -1,0 +1,7 @@
+# 不打包进镜像的文件
+.env
+.venv/
+__pycache__/
+*.pyc
+*.log
+.git/
